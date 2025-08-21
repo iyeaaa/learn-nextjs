@@ -3,7 +3,7 @@ export default async function MovieDetail({ params }: { params: Promise<{ id: st
   console.log(id);
 
   return (
-    <div>
+    <div>d
       <h1>Movie {id}</h1>
     </div>
   );
