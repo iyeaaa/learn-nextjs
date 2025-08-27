@@ -1,10 +1,30 @@
-export default async function MovieDetail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;   // await 필요!
-  console.log(id);
+import Image from "next/image";
+import { IMovie } from "../../../../types/movie";
+import { Suspense } from "react";
+import MovieVideos from "../../../../components/movie-videos";
+import MovieInfo from "../../../../components/movie-info";
+import { getMovie } from "../../../../components/movie-info";
 
+interface iParams {
+  params: { id: string };
+}
+
+async function generateMetadata({ params: { id } }: iParams) {
+  const movie = await getMovie(id);
+  return {
+    title: movie.title,
+  };
+}
+
+export default async function MovieDetail({ params: { id } }: iParams) {
   return (
-    <div>d
-      <h1>Movie {id}</h1>
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MovieInfo id={id} />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MovieVideos id={id} />
+      </Suspense>
     </div>
   );
 }
