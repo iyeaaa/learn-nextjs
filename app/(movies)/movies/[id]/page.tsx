@@ -5,18 +5,18 @@ import MovieVideos from "../../../../components/movie-videos";
 import MovieInfo from "../../../../components/movie-info";
 import { getMovie } from "../../../../components/movie-info";
 
-interface iParams {
+interface MovieDetailProps {
   params: { id: string };
 }
 
-async function generateMetadata({ params: { id } }: iParams) {
+export async function generateMetadata({ params: { id } }: MovieDetailProps) {
   const movie = await getMovie(id);
   return {
     title: movie.title,
   };
 }
 
-export default async function MovieDetail({ params: { id } }: iParams) {
+export default async function MovieDetail({ params: { id } }: MovieDetailProps) {
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
